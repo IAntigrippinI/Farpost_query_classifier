@@ -1,4 +1,5 @@
 from fastapi import APIRouter
+from utils import cluster_predict
 
 import warnings
 import numpy as np
@@ -25,17 +26,20 @@ async def is_alive():
 
 @router.post(f"/getAnswer")
 async def get_answer(quastion: str):
-    answer = {
-        "query": quastion,
-        "answer": [
-            {"empl": "Полный день", "profArea": "programmer"},
-            {"empl": "Удаленная работа", "profArea": "Тестировщик"},
-        ],
-    }
-    # answer1 = model.get_predict(np.array(quastion).reshape((1, 1)))
-    q = np.array(quastion).reshape((1, 1))
-    print(q)
+    answer = cluster_predict(quastion)
     return answer
+
+    # answer = {
+    #     "query": quastion,
+    #     "answer": [
+    #         {"empl": "Полный день", "profArea": "programmer"},
+    #         {"empl": "Удаленная работа", "profArea": "Тестировщик"},
+    #     ],
+    # }
+    # # answer1 = model.get_predict(np.array(quastion).reshape((1, 1)))
+    # q = np.array(quastion).reshape((1, 1))
+    # print(q)
+    # return answer
 
 
 @router.post(f"/trainModel")
