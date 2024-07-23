@@ -19,7 +19,9 @@ app = FastAPI()
 app.include_router(router)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["localhost:5173", "http://87.228.13.226"],
+    # allow_origins=["http://localhost:5173", "http://87.228.13.226"], for serer
+    # allow_origins = ['http://172.20.10.2:5173', 'http://localhost:5173', ' http://localhost:8000']
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

@@ -9,7 +9,7 @@ import AnswerCustom from "./components/AnswerCustom"
 import axios from 'axios'
 import './App.css'
 import { useState } from "react"
-import Documentation from "./components/DocumentationTrain/DocumentationTrain"
+
 import { Spin } from 'antd';
 
 export default function App() {
@@ -21,7 +21,8 @@ export default function App() {
   const [model, setModel] = useState('')
   const [answerCustom, setAnswerCustom] = useState([])
   const [istrain, setIstrain] = useState(1)
-  let port = '87.228.13.226:8000/api'
+  const [isGet, setIsGet] = useState(1)
+  let port = '/api'
 
 
   function onChange(e) {
@@ -47,19 +48,19 @@ export default function App() {
 
     // })
 
-    setAnswer(['wait'])
-    // axios.post(`http://${port}/getAnswer?quastion=${query}'`).then(responce => {
-    // answer.map((answ) => (<Answer props={answ} />))
+    setIsGet(2)
+    axios.post(`${port}/getAnswer?quastion=${query}'`).then(responce => {
+      // answer.map((answ) => (<Answer props={answ} />))
 
-    axios.post(`/api/getAnswer?quastion=${query}`).then(responce => {
+      console.log(responce.data.answer)
       setAnswer(responce.data.answer)
       console.log('resp:', answer)
-      answer.map((answ) => console.log(answ))
       console.log('finish')
 
 
     })
     console.log('Button clicked')
+    setIsGet(1)
   }
 
   function onClickMenu1() {
@@ -103,7 +104,7 @@ export default function App() {
     setAnswerCustom([1, 2])
     console.log('train')
 
-    axios.post(`http://${port}/trainModel?model=${model}`, trainData).then(responce => {
+    axios.post(`${port}/trainModel?model=${model}`, trainData).then(responce => {
       console.log(responce.data)
       setAnswerCustom(responce.data.predicted)
       console.log('custom', answerCustom)
@@ -127,8 +128,9 @@ export default function App() {
           <div className="input-area">
             <Input onChange={onChange} onClick={onClick} />
           </div>
-          <div><p>{answer.map((answ) => console.log(answ.empl))}</p></div>
-          <div><p>{answer == ['wait'] ? <Spin /> : <div>{answer.map((answ) => <Answer empl={answ.empl} profArea={answ.profArea} />)}</div>}</p></div>
+          {/* <div><p>{answer.map((answ) => console.log(answ.empl))}</p></div> */}
+          {/* <div><p>{answer == ['wait'] ? <Spin /> : <div>{answer.map((answ) => <Answer answerdata={answ} />)}</div>}</p></div> */}
+          {isGet == 2 ? <Spin /> : <div><p><Answer answerdata={answer} /></p></div>}
         </div> :
           <div>
             <HeaderTrain />
@@ -145,7 +147,9 @@ export default function App() {
               <div>
                 {/* <p>{answerCustom == ["wait"] ? <Spin /> : <div>{answerCustom.map((answ) => <AnswerCustom query={answ.query} emp={answ.emp} job={answ.job} dop={answ.dop} cond={answ.cond} />)}</div>}</p> */}
                 {/* {answerCustom == ["wait"] ? <Spin /> : <div>{answerCustom.map((answ) => <AnswerCustom query={answ.query} emp={answ.emp} job={answ.job} dop={answ.dop} cond={answ.cond} />)}</div>} */}
-                {istrain == 2 ? <div className="wait-scroll"> <Spin size="large" /> </div> : <div>{answerCustom.map((answ) => <AnswerCustom query={answ.query} emp={answ.emp} job={answ.job} dop={answ.dop} cond={answ.cond} />)}</div>}
+                {istrain == 2 ? <div className="wait-scroll"> <Spin size="large" /> </div>
+                  :
+                  <div>{answerCustom.map((answ) => <AnswerCustom dataCustom={answ} />)}</div>}
               </div>
 
 

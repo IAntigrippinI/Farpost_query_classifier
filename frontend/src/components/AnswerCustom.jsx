@@ -1,8 +1,8 @@
 import './Answer.css'
-export default function AnswerCustom({ query, emp, job, dop, cond }) {
+export default function Answer({ answerdata }) {
     return (
         <div className="answer">
-            <p>{query} : {emp}, {job}, {dop}, {cond}</p>
+            <p>должность : {answerdata.position}, занятость: {answerdata.employment}, дополнительно : {answerdata.additance}, кондиции: {answerdata.conditions}, общая фраза: {answerdata.phrase}</p>
         </div>
     )
 }

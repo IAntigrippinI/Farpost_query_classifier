@@ -3,6 +3,7 @@ from fastapi import APIRouter
 import warnings
 import numpy as np
 import pandas as pd
+import joblib
 from pandas import json_normalize
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.linear_model import LogisticRegression
@@ -10,6 +11,8 @@ from sklearn.model_selection import RandomizedSearchCV, train_test_split
 from sklearn.metrics import accuracy_score
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.preprocessing import LabelEncoder
+
+from utils import cluster_predict
 
 # from init import model
 from classes import Maker_model
@@ -25,16 +28,17 @@ async def is_alive():
 
 @router.post(f"/getAnswer")
 async def get_answer(quastion: str):
-    answer = {
-        "query": quastion,
-        "answer": [
-            {"empl": "Полный день", "profArea": "programmer"},
-            {"empl": "Удаленная работа", "profArea": "Тестировщик"},
-        ],
-    }
-    # answer1 = model.get_predict(np.array(quastion).reshape((1, 1)))
-    q = np.array(quastion).reshape((1, 1))
-    print(q)
+    # answer = {
+    #     "query": quastion,
+    #     "answer": [
+    #         {"empl": "Полный день", "profArea": "programmer"},
+    #         {"empl": "Удаленная работа", "profArea": "Тестировщик"},
+    #     ],
+    # }
+    # # answer1 = model.get_predict(np.array(quastion).reshape((1, 1)))
+    # q = np.array(quastion).reshape((1, 1))
+    # print(q)
+    answer = cluster_predict(quastion)
     return answer
 
 
@@ -45,7 +49,7 @@ async def train_model(model: str, data: dict):
     for_predict = data["predict"]
     df_pred = pd.json_normalize(for_predict)
     data = data["data"]
-    df = pd.json_normalize(data).iloc[:10000]
+    df = pd.json_normalize(data).iloc[:1000]
 
     # Separate features and target variables
     X = df.drop(predicted_values, axis=1)
