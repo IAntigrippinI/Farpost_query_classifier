@@ -1,0 +1,9 @@
+div {
+    text-align: center;
+}
+
+.text-area {
+    width: 500px;
+    height: 100px;
+    resize: none;
+}

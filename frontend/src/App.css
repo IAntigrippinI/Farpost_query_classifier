@@ -1,0 +1,53 @@
+body {
+  background-color: white;
+  height: 700px;
+}
+
+.main {
+  background-color: blue;
+  margin: 0 auto;
+  /* text-align: center; */
+}
+
+.inputArea {
+  background-color: red;
+}
+
+
+.menu {
+  background-color: brown;
+}
+
+.page {
+  margin: 0 auto;
+  display: flex;
+  background-color: chartreuse;
+  height: 100%;
+}
+
+.input-area {
+  margin-top: 100px;
+  margin-right: 30%;
+  margin-left: 30%;
+  /* background-color: bisque; */
+}
+
+.top {
+  display: flex;
+  background-color: white;
+  border-bottom: 0.5px solid;
+  height: 70px;
+}
+
+.menu-buttons-container {
+  display: flex;
+  margin-left: 10%;
+}
+
+.field {
+  margin-top: 20px;
+}
+
+.wait-scroll {
+  margin-top: 30px;
+}

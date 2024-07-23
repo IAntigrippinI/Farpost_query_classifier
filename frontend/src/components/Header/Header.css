@@ -1,0 +1,14 @@
+.header {
+
+    display: flex;
+}
+
+.buttons {
+    margin-left: 200px;
+    display: flex;
+}
+
+
+.Name {
+    margin-left: 5px;
+}
