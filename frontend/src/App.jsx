@@ -48,9 +48,10 @@ export default function App() {
     // })
 
     setAnswer(['wait'])
-    axios.post(`http://${port}/getAnswer?quastion=${query}'`).then(responce => {
-      // answer.map((answ) => (<Answer props={answ} />))
+    // axios.post(`http://${port}/getAnswer?quastion=${query}'`).then(responce => {
+    // answer.map((answ) => (<Answer props={answ} />))
 
+    axios.post(`/api/getAnswer?quastion=${query}`).then(responce => {
       setAnswer(responce.data.answer)
       console.log('resp:', answer)
       answer.map((answ) => console.log(answ))
