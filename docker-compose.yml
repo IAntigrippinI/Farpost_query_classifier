@@ -8,8 +8,8 @@ services:
     ports:
       - "80:80"
     depends_on:
-      - back
-      - front
+      - backend
+      - frontend
     volumes:
       - './nginx.conf:/etc/nginx/nginx.conf'
     networks:
