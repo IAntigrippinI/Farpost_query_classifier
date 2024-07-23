@@ -23,6 +23,9 @@ export default function App() {
   const [istrain, setIstrain] = useState(1)
   const [isGet, setIsGet] = useState(1)
   let port = '/api'
+  // let port = 'http://0.0.0.0:8000' // for devepol
+
+  console.log(answer)
 
 
   function onChange(e) {
@@ -31,31 +34,15 @@ export default function App() {
   }
 
   function onClick() {
-    // axios.get('http://0.0.0.0:8000/isalive').then(responce => { for docker
-    //   console.log(responce)
-    // })
-    // axios.get('http://localhost:7778/isalive').then(responce => {
-    //   console.log(responce)
-    // })
-    // axios.post(`http://localhost:7778/getAnswer?quastion=${query}'`).then(responce => {
-    //   // answer.map((answ) => (<Answer props={answ} />))
-
-    //   setAnswer(responce.data.answer)
-    //   console.log('resp:', answer)
-    //   answer.map((answ) => console.log(answ))
-    //   console.log('finish')
-
-
-    // })
 
     setIsGet(2)
     axios.post(`${port}/getAnswer?quastion=${query}'`).then(responce => {
       // answer.map((answ) => (<Answer props={answ} />))
 
-      console.log(responce.data.answer)
+      // console.log(responce.data.answer)
       setAnswer(responce.data.answer)
-      console.log('resp:', answer)
-      console.log('finish')
+      // console.log('resp:', answer)
+      // console.log('finish')
 
 
     })
@@ -64,12 +51,12 @@ export default function App() {
   }
 
   function onClickMenu1() {
-    console.log('PageButton1')
+    // console.log('PageButton1')
     setPageId(0)
   }
 
   function onClickMenu2() {
-    console.log('PageButton2')
+    // console.log('PageButton2')
     setPageId(1)
   }
 

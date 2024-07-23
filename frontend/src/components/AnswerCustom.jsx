@@ -1,8 +1,9 @@
 import './Answer.css'
-export default function Answer({ answerdata }) {
+export default function AnswerCustom({ dataCustom }) {
+    console.log('answerdata', dataCustom)
     return (
         <div className="answer">
-            <p>должность : {answerdata.position}, занятость: {answerdata.employment}, дополнительно : {answerdata.additance}, кондиции: {answerdata.conditions}, общая фраза: {answerdata.phrase}</p>
+            <p>{JSON.stringify(dataCustom)}</p>
         </div>
     )
 }
