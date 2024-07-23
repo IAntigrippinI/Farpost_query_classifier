@@ -22,8 +22,8 @@ export default function App() {
   const [answerCustom, setAnswerCustom] = useState([])
   const [istrain, setIstrain] = useState(1)
   const [isGet, setIsGet] = useState(1)
-  //let port = '/api'
-  let port = 'http://0.0.0.0:8000' // for devepol
+  let port = '/api'
+  //let port = 'http://0.0.0.0:8000' // for devepol
 
   console.log(answer)
 
