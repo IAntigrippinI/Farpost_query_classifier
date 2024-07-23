@@ -21,7 +21,7 @@ export default function App() {
   const [model, setModel] = useState('')
   const [answerCustom, setAnswerCustom] = useState([])
   const [istrain, setIstrain] = useState(1)
-  let port = 'http://87.228.13.226:8000/api'
+  let port = '87.228.13.226:8000/api'
 
 
   function onChange(e) {
