@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-from utils import cluster_predict
+from utils import cluster_predict, cluster_predict_pol
 
 import warnings
 import numpy as np
@@ -27,7 +27,8 @@ async def is_alive():
 @router.post(f"/getAnswer")
 async def get_answer(quastion: str):
     print(quastion)
-    answer = cluster_predict(quastion)
+    # answer = cluster_predict(quastion)
+    answer = cluster_predict_pol(quastion)
     return answer
 
     # answer = {

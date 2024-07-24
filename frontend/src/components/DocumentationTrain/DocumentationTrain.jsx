@@ -22,6 +22,7 @@ export default function DocumentationTrain() {
                     <ul>
                         <li>В файле должны быть указаны целевые переменные, данные для предсказания и датасет для обучения</li>
                         <li>Поддерживаемые типы модели для обучения: (lr: LogisticRegression, rf: RandomForestClassifier)</li>
+                        <li>Размер файла не должен превышать 3 Мб</li>
                     </ul>
                 </div>
                 <JsonExample />

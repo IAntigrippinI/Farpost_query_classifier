@@ -8,11 +8,13 @@ import Answer from "./components/Answer"
 import AnswerCustom from "./components/AnswerCustom"
 import axios from 'axios'
 import './App.css'
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import { Helmet } from "react-helmet"
 
 import { Spin } from 'antd';
 
 export default function App() {
+
 
   const [query, setQuery] = useState('')
   const [answer, setAnswer] = useState([])
@@ -22,14 +24,28 @@ export default function App() {
   const [answerCustom, setAnswerCustom] = useState([])
   const [istrain, setIstrain] = useState(1)
   const [isGet, setIsGet] = useState(1)
-  let port = '/api'
-  //let port = 'http://0.0.0.0:8000' // for devepol
+  const [accuracy, setAccuracy] = useState([])
+  // let port = '/api'
+  let port = 'http://0.0.0.0:8000' // for devepol
 
-  console.log(answer)
+  //console.log(answer)
+
+  useEffect(() => {
+    // Создадим элемент <link> для favicon
+    const link = document.createElement('link');
+    link.rel = 'icon';
+    link.href = './favicon.ico'; // Путь к вашей иконке
+    document.head.appendChild(link);
+
+    // Опционально: если вы хотите удалить иконку при размонтировании компонента
+    return () => {
+      document.head.removeChild(link);
+    };
+  }, []);
 
 
   function onChange(e) {
-    console.log(e.target.value)
+    // console.log(e.target.value)
     setQuery(e.target.value)
   }
 
@@ -61,7 +77,7 @@ export default function App() {
   }
 
   function onChangeFile(event) {
-    console.log('change file')
+    // console.log('change file')
     // setTraindata(e.targer.files[0])
 
     //console.log(event.target.files[0])
@@ -79,7 +95,7 @@ export default function App() {
       };
       reader.readAsText(file)
     }
-    console.log('train', trainData)
+    // console.log('train', trainData)
   }
 
   function onChangeModel(e) {
@@ -92,17 +108,19 @@ export default function App() {
     console.log('train')
 
     axios.post(`${port}/trainModel?model=${model}`, trainData).then(responce => {
-      console.log(responce.data)
+      //console.log(responce.data)
       setAnswerCustom(responce.data.predicted)
-      console.log('custom', answerCustom)
-      setIstrain(1)
+      setAccuracy(responce.data.accuracy)
+      //console.log('custom', answerCustom)
+      setIstrain(3)
     })
 
   }
   return (
 
-
     <body>
+      <link rel="icon" href="./vite.svg" type="image/svg"></link>
+      <Helmet title="FQC" />
       <div>
         <div className="top">
           <Header />
@@ -115,8 +133,6 @@ export default function App() {
           <div className="input-area">
             <Input onChange={onChange} onClick={onClick} />
           </div>
-          {/* <div><p>{answer.map((answ) => console.log(answ.empl))}</p></div> */}
-          {/* <div><p>{answer == ['wait'] ? <Spin /> : <div>{answer.map((answ) => <Answer answerdata={answ} />)}</div>}</p></div> */}
           {isGet == 2 ? <Spin /> : <div><p><Answer answerdata={answer} /></p></div>}
         </div> :
           <div>
@@ -132,11 +148,14 @@ export default function App() {
                 <ButtonGet props="Start train" onClick={onClickSendTrain} />
               </div>
               <div>
-                {/* <p>{answerCustom == ["wait"] ? <Spin /> : <div>{answerCustom.map((answ) => <AnswerCustom query={answ.query} emp={answ.emp} job={answ.job} dop={answ.dop} cond={answ.cond} />)}</div>}</p> */}
-                {/* {answerCustom == ["wait"] ? <Spin /> : <div>{answerCustom.map((answ) => <AnswerCustom query={answ.query} emp={answ.emp} job={answ.job} dop={answ.dop} cond={answ.cond} />)}</div>} */}
                 {istrain == 2 ? <div className="wait-scroll"> <Spin size="large" /> </div>
                   :
-                  <div>{answerCustom.map((answ) => <AnswerCustom dataCustom={answ} />)}</div>}
+                  <div>
+                    <div className="metrics">
+                      {istrain == 3 ? <p>Metrics : {JSON.stringify(accuracy)}</p> : <p></p>}
+                    </div>
+                    <div>{answerCustom.map((answ) => <AnswerCustom dataCustom={answ} />)}</div>
+                  </div>}
               </div>
 
 
