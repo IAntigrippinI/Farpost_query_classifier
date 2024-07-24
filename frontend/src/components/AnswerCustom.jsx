@@ -4,7 +4,7 @@ export default function AnswerCustom({ dataCustom }) {
     return (
         <div>
             <div className="answer">
-                <p>{JSON.stringify(dataCustom)}</p>
+                <p>{JSON.stringify(dataCustom).replaceAll('",', ", ").replaceAll('{', '').replaceAll('"}', '').replaceAll(':"', ' : ')}</p>
             </div>
         </div>
     )
