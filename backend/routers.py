@@ -28,7 +28,7 @@ async def is_alive():
 async def get_answer(quastion: str):
     print(quastion)
     # answer = cluster_predict(quastion)
-    answer = cluster_predict_pol(quastion)
+    answer = cluster_predict(quastion)
     return answer
 
     # answer = {

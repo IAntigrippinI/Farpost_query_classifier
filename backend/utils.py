@@ -1,5 +1,5 @@
 import joblib
-from config import classes
+from config import classes, classes1
 
 
 def cluster_predict_pol(query):
@@ -33,12 +33,12 @@ def cluster_predict_pol(query):
 
 
 def cluster_predict(query):
-    employment_model = joblib.load("models/employment_model.pkl")
-    position_model = joblib.load("models/position_model.pkl")
-    additance_model = joblib.load("models/additance_model.pkl")
-    conditions_model = joblib.load("models/conditions_model.pkl")
+    employment_model = joblib.load("models2/employment_model.pkl")
+    position_model = joblib.load("models2/position_model.pkl")
+    additance_model = joblib.load("models2/additance_model.pkl")
+    conditions_model = joblib.load("models2/conditions_model.pkl")
     # phrase_model = joblib.load("models/phrase_model.pkl")
-    vectorizer = joblib.load("models/employment_vectorizer.pkl")
+    vectorizer = joblib.load("models2/employment_vectorizer.pkl")
 
     query = vectorizer.transform([query])
 
@@ -61,11 +61,10 @@ def cluster_predict(query):
     #     print(classes[0][key][value])
     answer = {
         "answer": {
-            "employment": classes[0]["employment"][employment_pred[0]],
-            "position": classes[0]["position"][position_pred[0]],
-            "additance": classes[0]["additance"][additance_pred[0]],
-            "conditions": classes[0]["conditions"][conditions_pred[0]],
-            "phrase": "who",
+            "employment": classes1[0]["employment"][employment_pred[0]],
+            "position": classes1[0]["position"][position_pred[0]],
+            "additance": classes1[0]["additance"][additance_pred[0]],
+            "conditions": classes1[0]["conditions"][conditions_pred[0]],
         }
     }
     return answer
