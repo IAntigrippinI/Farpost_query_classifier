@@ -6,6 +6,7 @@ import HeaderTrain from "./components/Header/HeaderTrain"
 import DocumentationTrain from "./components/DocumentationTrain/DocumentationTrain"
 import Answer from "./components/Answer"
 import AnswerCustom from "./components/AnswerCustom"
+import DocumentationAPI from "./components/DocumentationAPI/DocumentationAPI"
 import axios from 'axios'
 import './App.css'
 import { useState, useEffect } from "react"
@@ -134,6 +135,9 @@ export default function App() {
             <Input onChange={onChange} onClick={onClick} />
           </div>
           {isGet == 2 ? <Spin /> : <div><p><Answer answerdata={answer} /></p></div>}
+          <div className="for-docs">
+            <DocumentationAPI />
+          </div>
         </div> :
           <div>
             <HeaderTrain />

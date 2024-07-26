@@ -1,0 +1,38 @@
+.example {
+    background-color: white;
+    /* border: 1px solid; */
+    max-width: 1070px;
+    margin: 0 auto;
+    text-align: left;
+    padding: 10px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.code {
+    text-align: left;
+    border: 1px solid;
+    background-color: rgb(230, 224, 224);
+    border-radius: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.responce {
+    margin-top: 20px;
+    text-align: left;
+    border: 1px solid;
+    background-color: rgb(230, 224, 224);
+    border-radius: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 20px;
+}
+
+.docs-api {
+
+    border-top: 1px solid;
+    max-width: 1170px;
+    margin: 0 auto;
+
+}
