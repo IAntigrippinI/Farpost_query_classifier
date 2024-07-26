@@ -73,7 +73,7 @@ async def train_model(model: str, data: dict):
                 query_model = LogisticRegression(C=0.8, random_state=0)
             else:
                 query_model = RandomForestClassifier(
-                    random_state=0, n_estimators=100, max_depth=15
+                    random_state=0, n_estimators=150, max_depth=15
                 )
         else:
             query_model = LogisticRegression(C=0.8, random_state=0)
