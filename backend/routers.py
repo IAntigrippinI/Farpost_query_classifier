@@ -13,7 +13,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.preprocessing import LabelEncoder
 
 # from init import model
-from classes import Maker_model
+from config import available__models
 
 warnings.filterwarnings("ignore")
 router = APIRouter()
@@ -68,31 +68,26 @@ async def train_model(model: str, data: dict):
         )
 
         # Model selection
-        if model == "":
-            models = "lr"
+        if model in available__models:
+            if model == "lr":
+                query_model = LogisticRegression(C=0.8, random_state=0)
+            else:
+                query_model = RandomForestClassifier(
+                    random_state=0, n_estimators=100, max_depth=15
+                )
         else:
-            models = model
-
-        models_for_make = {
-            "rf": RandomForestClassifier(class_weight="balanced"),
-            "lr": LogisticRegression(class_weight="balanced", max_iter=1000),
-        }
-
-        param_for_make = {
-            "rf": {"n_estimators": [50, 100], "max_depth": [5, 10, 15]},
-            "lr": {"C": [0.5]},
-        }
+            query_model = LogisticRegression(C=0.8, random_state=0)
 
         X_pred = vectorizer.transform(df_pred.iloc[:, 0])
         X_pred_df = pd.DataFrame(
             X_pred.toarray(), columns=vectorizer.get_feature_names_out()
         )
-        print(f"make model {models}")
+        # print(f"make model {models}")
         pred = df_pred.copy()
-        print("start")
+        # print("start")
         acc = {}
         for target in predicted_values:
-            print(f"train for {target}")
+            # print(f"train for {target}")
             y = df[target]
 
             X_train, X_test, y_train, y_test = train_test_split(
@@ -105,18 +100,18 @@ async def train_model(model: str, data: dict):
             #     cv=5,
             #     random_state=0,
             # )
-            rs = LogisticRegression(class_weight="balanced", C=0.5)
-            rs.fit(X_train, y_train)
+            # rs = LogisticRegression(class_weight="balanced", C=0.5)
+            query_model.fit(X_train, y_train)
 
-            y_pred_train = rs.predict(X_train)
+            y_pred_train = query_model.predict(X_train)
             print(f"{target} train_accuracy:", accuracy_score(y_train, y_pred_train))
 
-            y_pred_test = rs.predict(X_test)
+            y_pred_test = query_model.predict(X_test)
             acc_test = accuracy_score(y_test, y_pred_test)
             print(f"{target} test_accuracy:", acc_test)
             acc[target] = acc_test
 
-            pred[target] = rs.predict(X_pred_df)
+            pred[target] = query_model.predict(X_pred_df)
 
         result = {"accuracy": acc, "predicted": pred.to_dict(orient="records")}
 

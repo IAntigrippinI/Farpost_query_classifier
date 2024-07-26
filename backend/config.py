@@ -1,8 +1,7 @@
 from sklearn.linear_model import LogisticRegression
 from sklearn.ensemble import RandomForestClassifier
 
-models_for_make = {"rf": RandomForestClassifier(), "lr": LogisticRegression()}
-
+available__models = ["lr", "rf"]
 
 classes = [
     {
